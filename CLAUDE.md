@@ -20,6 +20,36 @@
 - Projeto separado para testes unitários com **xUnit**
 - Clean Architecture simples (projeto pequeno)
 
+## BIBLIOTECAS E FERRAMENTAS
+
+Bibliotecas definidas para cada necessidade. Algumas podem não ser usadas de fato; a especificação evita decisão improvisada quando a demanda aparecer.
+
+| Necessidade | Biblioteca / Ferramenta | Situação |
+| --- | --- | --- |
+| Documentação de endpoints | Swagger (Swashbuckle.AspNetCore) | Somente se houver API |
+| Acesso ao banco de dados (ORM) | Entity Framework Core (compatível com .NET 8) | Confirmada |
+| Mapeamento DTO ↔ Entidade | AutoMapper | Prevista |
+| Padrão de código (linter) | StyleCop (StyleCop.Analyzers) | Prevista |
+| Registro de logs | Serilog | Prevista |
+| Envio de e-mails | SendGrid | Somente se houver notificação por e-mail |
+| Jobs em background | Hangfire | Somente se houver processamento agendado |
+
+### Serilog — destinos (sinks)
+
+| Sink | Pacote | Uso |
+| --- | --- | --- |
+| Arquivo | `Serilog.Sinks.File` | Produção e desenvolvimento; arquivo diário com retenção de 30 dias |
+| Debug (Output do Visual Studio) | `Serilog.Sinks.Debug` | Somente em desenvolvimento |
+
+- Local dos arquivos: `%LOCALAPPDATA%\GEF\logs\gef-.log` (o Serilog completa a data no nome).
+- Nível mínimo: `Information` em produção, `Debug` em desenvolvimento.
+- Nunca registrar em log dados sensíveis (senhas, tokens, número completo de cartão ou conta).
+
+Regras:
+
+- Nenhuma outra biblioteca externa entra na solução sem eu aprovar antes.
+- Ao adotar uma biblioteca da tabela, atualizar a coluna **Situação** para `Em uso`.
+
 ## ESTRUTURA DE PROJETOS
 
 Nomes de projeto/camada em inglês, com prefixo `GEF`:
